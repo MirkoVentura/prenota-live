@@ -1,28 +1,44 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template >
+  <div>
+    <nav class="navbar navbar-dark bg-dark justify-content-between flex-nowrap flex-row">
+      <div class="container">
+        <a class="navbar-brand float-left">Camarilla Italia Potenza - Prenotazioni</a>
+        <ul class="nav navbar-nav flex-row float-right">
+          <li class="nav-item">
+            <router-link class="nav-link pr-3" to="/">HOME</router-link>
+          </li>
+         
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
 <style>
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #e81b2d;
 }
 </style>
