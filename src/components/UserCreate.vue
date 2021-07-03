@@ -6,7 +6,7 @@
             <form @submit.prevent="onFormSubmit">
                <select v-model="selected">
                    <option disabled value="">Scegli la continuty</option>
-                   <option>V5 - 15 Luglio</option>
+                   <option>V5 - 16 Luglio</option>
                    <option>Mage - 23 Luglio</option>
                 </select>
                 <div class="form-group">
@@ -75,7 +75,7 @@
             onFormSubmit(event) {
                 event.preventDefault()
                 
-                if (this.selected === 'V5 - 15 Luglio') {
+                if (this.selected === 'V5 - 16 Luglio') {
                     this.dbName = 'vampire'
                     this.actualCount = this.Vampire.length
                     if (this.search(this.user.email,this.Vampire)) {
