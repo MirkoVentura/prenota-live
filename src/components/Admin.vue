@@ -5,6 +5,7 @@
             <table class="table table-striped" style="color:#fff">
                 <thead>
                     <tr>
+                        <th>Surname</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Actions</th>
@@ -12,6 +13,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="user in Users" :key="user.key" style="color:red">
+                        <td>{{ user.surname }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>
@@ -37,7 +39,7 @@
             }
         },
         created() {
-            this.cronaca = this.$route.params.cronaca
+            this.cronaca = this.$route.params.cronaca+'-08'
             
             db.collection(this.cronaca).onSnapshot((snapshotChange) => {
                 this.Users = [];
@@ -45,7 +47,8 @@
                     this.Users.push({
                         key: doc.id,
                         name: doc.data().name,
-                        email: doc.data().email
+                        email: doc.data().email,
+                        surname: doc.data().surname
                     })
                 });
             })

@@ -4,14 +4,25 @@
             <h3 class="text-center">Prenota ora</h3>
             <p>Inserisci i tuoi dati per segnalare la tua presenza ad uno dei due live. </p>
             <form @submit.prevent="onFormSubmit">
-               <select v-model="selected">
-                   <option disabled value="">Scegli la continuty</option>
-                   <option>V5 - 16 Luglio</option>
-                   <option>Mage - 23 Luglio</option>
-                </select>
+                <label>Scegli la continuty </label>
+
                 <div class="form-group">
-                    <label>Name</label>
+                    
+                    <input type="radio" id="yes" value="vampire-08" v-model="picked">
+                    <label for="yes">V5 - 27 Agosto</label>
+                    <br />
+                    <input type="radio" id="no" value="mage-08" v-model="picked">
+                    <label for="no">Mage - 29 Agosto</label>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nome</label>
                     <input type="text" class="form-control" v-model="user.name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Cognome</label>
+                    <input type="text" class="form-control" v-model="user.surname" required>
                 </div>
 
                 <div class="form-group">
@@ -39,9 +50,11 @@
             return {
                 Mage: [],
                 Vampire: [],
+                picked: null,
                 user: {
                    name: '',
                    email: '',
+                   surname: '',
                 },
                 selected: '',
                 dbName: '',
@@ -49,23 +62,25 @@
             }
         },
         created() {
-            db.collection('mage').onSnapshot((snapshotChange) => {
+            db.collection('mage-08').onSnapshot((snapshotChange) => {
                 this.Users = [];
                 snapshotChange.forEach((doc) => {
                     this.Mage.push({
                         key: doc.id,
                         name: doc.data().name,
                         email: doc.data().email,
+                        surname: doc.data().surname,
                     })
                 });
             })
-            db.collection('vampire').onSnapshot((snapshotChange) => {
+            db.collection('vampire-08').onSnapshot((snapshotChange) => {
                 this.Users = [];
                 snapshotChange.forEach((doc) => {
                     this.Vampire.push({
                         key: doc.id,
                         name: doc.data().name,
                         email: doc.data().email,
+                        surname: doc.data().surname,
                     })
                 });
             })
@@ -75,8 +90,9 @@
             onFormSubmit(event) {
                 event.preventDefault()
                 
-                if (this.selected === 'V5 - 16 Luglio') {
-                    this.dbName = 'vampire'
+                if (this.picked === 'vampire-08') {
+                    this.dbName = 'vampire-08'
+                    this.selected = 'V5 il 27 Agosto'
                     this.actualCount = this.Vampire.length
                     if (this.search(this.user.email,this.Vampire)) {
                         alert ('Risulti già iscritto contatta il coordinamento per maggiori dettagli');
@@ -85,8 +101,9 @@
 
                 }
 
-                if (this.selected === 'Mage - 23 Luglio') {
-                    this.dbName = 'mage'
+                if (this.picked === 'mage-08') {
+                    this.dbName = 'mage-08'
+                    this.selected = 'Mage il 29 Agosto'
                     this.actualCount = this.Mage.length
                     if (this.search(this.user.email,this.Mage)) {
                         alert ('Risulti già iscritto contatta il coordinamento per maggiori dettagli');
@@ -94,7 +111,7 @@
                     }
                 }
 
-                if (this.selected === "") {
+                if (this.picked === null) {
                     alert('Seleziona uno degli eventi disponibili')
                     return
                 }
@@ -103,11 +120,15 @@
                 db.collection(this.dbName).add(this.user).then(() => {
                     this.user.name = ''
                     this.user.email = ''
+                    this.user.surname = ''
+                    this.picked = null
+                    this.dbName = ''
                     if(this.actualCount >= 25) {
                         alert('Purtroppo non potrai partecipare a questo evento! contatta il coordinamento per venire prenotato automaticamente al prossimo!')
                     }else {
                         alert('Prenotazione raccolta con successo ci vediamo per '+this.selected)
                     }
+                    this.selected = ''
                     this.$forceUpdate();
                 }).catch((error) => {
                     console.log(error);

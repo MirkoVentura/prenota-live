@@ -42,7 +42,7 @@
             }
         },
         created() {
-            this.cronaca = this.$route.params.cronaca;
+            this.cronaca = this.$route.params.cronaca + '-08';
             let dbRef = db.collection(this.cronaca).doc(this.$route.params.id);
             dbRef.get().then((doc) => {
                 this.user = doc.data();
