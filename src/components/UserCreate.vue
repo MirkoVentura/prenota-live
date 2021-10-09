@@ -8,11 +8,11 @@
 
                 <div class="form-group">
                     
-                    <input type="radio" id="yes" value="vampire-08" v-model="picked">
-                    <label for="yes">V5 - 27 Agosto</label>
+                    <input type="radio" id="yes" value="vampire-10" v-model="picked">
+                    <label for="yes">V5</label>
                     <br />
-                    <input type="radio" id="no" value="mage-08" v-model="picked">
-                    <label for="no">Mage - 29 Agosto</label>
+                    <input type="radio" id="no" value="mage-10" v-model="picked">
+                    <label for="no">Mage</label>
                 </div>
                 
                 <div class="form-group">
@@ -62,7 +62,7 @@
             }
         },
         created() {
-            db.collection('mage-08').onSnapshot((snapshotChange) => {
+            db.collection('mage-10').onSnapshot((snapshotChange) => {
                 this.Users = [];
                 snapshotChange.forEach((doc) => {
                     this.Mage.push({
@@ -73,7 +73,7 @@
                     })
                 });
             })
-            db.collection('vampire-08').onSnapshot((snapshotChange) => {
+            db.collection('vampire-10').onSnapshot((snapshotChange) => {
                 this.Users = [];
                 snapshotChange.forEach((doc) => {
                     this.Vampire.push({
@@ -90,9 +90,9 @@
             onFormSubmit(event) {
                 event.preventDefault()
                 
-                if (this.picked === 'vampire-08') {
-                    this.dbName = 'vampire-08'
-                    this.selected = 'V5 il 27 Agosto'
+                if (this.picked === 'vampire-10') {
+                    this.dbName = 'vampire-10'
+                    this.selected = 'V5'
                     this.actualCount = this.Vampire.length
                     if (this.search(this.user.email,this.Vampire)) {
                         alert ('Risulti già iscritto contatta il coordinamento per maggiori dettagli');
@@ -101,9 +101,9 @@
 
                 }
 
-                if (this.picked === 'mage-08') {
-                    this.dbName = 'mage-08'
-                    this.selected = 'Mage il 29 Agosto'
+                if (this.picked === 'mage-10') {
+                    this.dbName = 'mage-10'
+                    this.selected = 'Mage'
                     this.actualCount = this.Mage.length
                     if (this.search(this.user.email,this.Mage)) {
                         alert ('Risulti già iscritto contatta il coordinamento per maggiori dettagli');
