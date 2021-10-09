@@ -39,7 +39,7 @@
             }
         },
         created() {
-            this.cronaca = this.$route.params.cronaca+'-08'
+            this.cronaca = this.$route.params.cronaca+'-10'
             
             db.collection(this.cronaca).onSnapshot((snapshotChange) => {
                 this.Users = [];
